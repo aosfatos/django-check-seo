@@ -1,5 +1,7 @@
 import json
+from urllib.parse import urlparse
 
+import requests
 from bs4 import BeautifulSoup
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.test import Client
@@ -21,9 +23,13 @@ class IndexView(PermissionRequiredMixin, generic.base.TemplateView):
             *args, **kwargs
         )
 
-        client = Client()
         page = self.request.GET.get("page")
-        response = client.get(page, follow=True)
+        parsed_url = urlparse(page)
+        if parsed_url.netloc in ("www.aosfatos.org", "aosfatos.org"):
+            response = requests.get(page)
+        else:
+            client = Client()
+            response = client.get(page, follow=True)
 
         soup = BeautifulSoup(response.content, features="lxml")
 
