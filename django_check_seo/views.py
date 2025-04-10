@@ -25,7 +25,7 @@ class IndexView(PermissionRequiredMixin, generic.base.TemplateView):
 
         page = self.request.GET.get("page")
         parsed_url = urlparse(page)
-        if parsed_url.netloc in ("www.aosfatos.org", "aosfatos.org"):
+        if parsed_url.netloc in ("www.aosfatos.org", "aosfatos.org", "www.aosfatos.dev", "aosfatos.dev"):
             response = requests.get(page)
         else:
             client = Client()
