@@ -14,7 +14,7 @@ from .checks_list import launch_checks
 from .conf import settings
 
 
-class IndexView(PermissionRequiredMixin, generic.base.TemplateView):
+class IndexView(generic.base.TemplateView):
     template_name = "django_check_seo/default.html"
     permission_required = "django_check_seo.use_django_check_seo"
 
